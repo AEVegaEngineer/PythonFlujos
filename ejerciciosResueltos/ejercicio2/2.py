@@ -1,23 +1,31 @@
 import csv
 
-with open('2.csv','r') as stop_words: 
-    lineas = [linea.strip() for linea in stop_words]
+def agregarMedia(archivo):
+    # abris el csv con parámetro de lectura
+    f = open('2.csv', 'r')
+    lector = csv.reader(f)
+    lista = list(lector)
+    f.close()
 
-for linea in lineas:
-    print(linea)
+    # Abrís el archivo en modo escritura
+    f = open('2.csv', 'w')
 
-#with open('2.csv') as csv_file:
-    #csv_reader = csv.reader(csv_file, delimiter=',')
-    #line_count = 0
-    #for row in csv_reader:
-        #step = 0
-        #for col in row:
-        #    step+=1
-        #    col
-        #if line_count == 0:
-        #    print(f'Los nombres de las columnas son {", ".join(row)}')
-        #    line_count += 1
-        #else:
-        #    print(f'\t{row[0]} trabaja en el departamento de {row[1]} y nació en {row[2]}.')
-        #    line_count += 1
-    #print(f'Procesadas {line_count} líneas.')
+    # iterás cada línea y escribís en el archivo lo mismo que hay en la lista
+    for linea in lista:
+        contador = 0
+        total = 0
+        lineaFormateada = ','.join(linea)
+        f.write(lineaFormateada+'\n')
+        for elemento in linea:
+            #total= total + (int)elemento
+            i = int(elemento)
+            total+=i
+            contador+=1
+        promedio = total/contador
+        f.write("promedio: "+str(promedio)+'\n')
+
+    f.close()
+def main():
+    valores=agregarMedia('2.csv')
+    
+main()

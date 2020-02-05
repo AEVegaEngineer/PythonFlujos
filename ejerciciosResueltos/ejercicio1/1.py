@@ -5,7 +5,6 @@ def calcularValores(archivo):
 	count = 0
 	total = 0
 	valores = []
-	# Strips the newline character 
 	for line in Lines: 
 		valor = int(line.strip())
 		valores.append(valor)
@@ -20,9 +19,3 @@ def main():
     print(valores)   
     
 main()
-#print("Máximo: "+str(max(valores)))
-#print("Mínimo: "+str(min(valores)))
-#print("Promedio: "+str(total/count)) 
-#print("Total: "+str(count)) 
-    
-    #print("Line{}: {}".format(count, line.strip())) 
