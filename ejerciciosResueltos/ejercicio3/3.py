@@ -14,12 +14,12 @@ def frecuenciaPalabra(archivo):
     # Abrís el archivo en modo escritura
     f = open('frecuencias.csv', 'w')
     for elm in cnt:
-        #for word in line.split():
         linea = elm+","+str(cnt[elm])
         print (linea)
         f.write(linea+'\n')
-    #return cnt
     f.close()
+
 def main():
     frecuenciaPalabra('cuentos.txt')
+    
 main()

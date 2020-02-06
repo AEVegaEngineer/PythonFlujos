@@ -2,13 +2,13 @@ import csv
 
 def agregarMedia(archivo):
     # abris el csv con parámetro de lectura
-    f = open('2.csv', 'r')
+    f = open(archivo, 'r')
     lector = csv.reader(f)
     lista = list(lector)
     f.close()
 
     # Abrís el archivo en modo escritura
-    f = open('2.csv', 'w')
+    f = open(archivo, 'w')
 
     # iterás cada línea y escribís en el archivo lo mismo que hay en la lista
     for linea in lista:
