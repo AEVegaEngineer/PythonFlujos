@@ -73,24 +73,20 @@ def ordenarArchivoPor():
             records.append(word) 
     f.close()
     entrada = int(entrada)
-    print(records)
     if entrada == 3:
         records.sort(key=lambda x:int(x[2]))
     else:
         records.sort(key=lambda x:x[entrada-1])
     f = open("persona.csv", 'w')
     for linea in records:
-        f.write(linea)
+        f.write(linea[0]+","+linea[1]+","+linea[2]+"\n")
     f.close()
     return "Se ha reordenado el archivo exitosamente"
 def mostrarArchivo():
+    f = open("persona.csv", 'r')
     for line in f:
-        for word in line.split():
-            word = word.replace(","," ")
-            word = word.replace(".","")
-            word = word.split()            
-            records.append(word)
- 
+        print (line)
+    f.close()
 def salir():
     return "SALIR"
  
