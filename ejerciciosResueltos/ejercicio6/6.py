@@ -1,5 +1,6 @@
 import csv
 import collections
+import random
 
 def generadora(ori,dest,cant):
     
@@ -7,25 +8,24 @@ def generadora(ori,dest,cant):
     contador = 0
     palabras = []
     f = open(ori, 'r')
-    for word in f:        
-        word = word.replace(",","")
-        word = word.replace(".","")            
-        if pmax>=len(word)>=pmin:                
-            if contador < cant and word not in palabras:
-                contador+=1
-                palabras.append(word)
+
+    line = next(f)
+    for x in range(0, cant):    
+        lines = open('origen.txt').read().splitlines()
+        myline =random.choice(lines)
+        palabras.append(myline)
+
     f.close()
     f = open(dest, 'w')
     for elm in palabras:
-        linea = str(elm)+","
-        print (linea)
-        f.write(linea+'\n')
+        print(elm)
+        f.write(elm+'\n')
     f.close()
 
 def main():
-    ori = 'origen.txt'
-    dest = 'destino.txt'
-    cant = 5
-    generadora(ori,dest,cant)
+    ori=input("Ingrese archivo origen:")
+    dest=input("Ingrese archivo destino:")
+    cant=input("Ingrese cantidad:")
+    generadora(ori,dest,int(cant))
     
 main()
