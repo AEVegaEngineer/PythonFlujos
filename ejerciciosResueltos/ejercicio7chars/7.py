@@ -1,49 +1,53 @@
+#reemplaza una caracter X por otro Y de una cadena CAD
+def reemplazarCaracter(CAD,X,Y):    
+    # cambia el string a lista
+    CAD  = list(CAD)
+    # busca el caracter a cambiar
+    posicion = 0
+    for c in CAD:        
+        if c == X:
+            posicion+=1
+    # cambia el caracter que quieres cambiar
+    CAD[Y] = "T"
+    # convert the list back to a string. 
+    CAD = "".join(CAD)
+
 def agregar():
     nombre=input("Ingrese nombre:")
     apellido=input("Ingrese apellido:")
     dni=input("Ingrese DNI:")
     # abris el archivo con parámetro de lectura
     f = open("persona.csv", 'r')
-    records = []
-    for line in f:
-        for word in line.split():
-            word = word.replace(","," ")
-            word = word.replace(".","")
-            word = word.split()            
-            records.append(word)
+    textoCompleto = f.readlines()
     f.close()
-    encontrado = 0
-    for row in records:
-        if row[2] == dni:
-            encontrado = 1
-    if encontrado == 1:
-        return "Error, DNI ya existe"
+    if dni in textoCompleto:
+        return "No puede guardar un DNI registrado"
     else:
         f = open("persona.csv", 'a')
         linea = nombre+","+apellido+","+dni+'\n'
         f.write(linea)
         f.close()
-
-    return "Persona ingresada correctamente"
+        return "Persona ingresada correctamente"
  
 def eliminar():
     dni=input("Ingrese DNI a eliminar:")
     f = open("persona.csv", 'r')
     records = []
     for line in f:
-        contador = 0
-        for word in line.split():
-            contador+=1
-            word = word.replace(","," ")
-            word = word.replace(".","")
-            word = word.split()            
-            if word[2] != dni:
-                records.append(line) 
-    f.close()
-    f = open("persona.csv", 'w')
-    for linea in records:
-        f.write(linea)
-    f.close()
+        linea = line.split(',')        
+        linea[2] = reemplazarCaracter(linea[2],'\n','')
+        print (linea)
+        #contador = 0
+        #for word in line.split():
+            #contador+=1
+            #word = word.split()          
+            #if word[2] != dni:
+                #records.append(line) 
+    #f.close()
+    #f = open("persona.csv", 'w')
+    #for linea in records:
+        #f.write(linea)
+    #f.close()
     return "Se ha eliminado a la persona"
 def buscar():
     entrada=input("Ingrese DNI o apellido a buscar:")
