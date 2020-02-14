@@ -1,20 +1,3 @@
-#reemplaza una caracter X por otro Y de una cadena CAD
-def reemplazarCaracter(CAD,X,Y):    
-    # cambia el string a lista
-    CAD  = list(CAD)
-    # busca el caracter a cambiar
-    limiteInferior = 0
-    posicion = 0
-    for c in CAD:
-        for xi in X:
-            if c == xi:
-                limiteInferior = posicion
-        posicion+=1
-    # cambia el caracter que quieres cambiar
-    CAD[Y] = "T"
-    # convert the list back to a string. 
-    CAD = "".join(CAD)
-
 def split(cadena,subcadena):
     lista = []
     substr = ""
@@ -59,25 +42,20 @@ def eliminar():
     entrada=input("Ingrese DNI a eliminar:")
     f = open("persona.csv", 'r')
     records = []
+    match = 0
+
     for line in f:
         linea = split(line,',')
         dni = list(linea[2])
-        del dni[len(dni)-1]
         dni = listaACadena(dni)
-        print (dni)
-        contador = 0
         if dni != entrada:
             records.append(line)
         else:
-            contador+=1
-        if contador != 0:
-            return "No se encontro a la persona"
-        #for word in line.split():
-            #contador+=1
-            #word = word.split()          
-            #if word[2] != dni:
-                #records.append(line) 
+            match = 1
+    if match == 0:
+        return "No se encontro a la persona"
     f.close()
+
     f = open("persona.csv", 'w')
     for linea in records:
         f.write(linea)
@@ -87,15 +65,14 @@ def buscar():
     entrada=input("Ingrese DNI o apellido a buscar:")
     f = open("persona.csv", 'r')
     encontrado = 0
-    for line in f:        
-        for word in line.split():
-            word = word.replace(","," ")
-            word = word.replace(".","")
-            word = word.split()       
-            if word[1] == entrada or word[2] == entrada:
-                encontrado = 1
-                return (word[0]+" "+word[1]+" "+ word[2])
-                break
+    for line in f:
+        cadSeparada = split(line,',')
+        if cadSeparada[1] == entrada:
+            encontrado = 1
+        if cadSeparada[2] == entrada:
+            encontrado = 1
+        if encontrado == 1:
+            return (word[0]+" "+word[1]+" "+ word[2])
     if encontrado == 0:
         return("No existe persona con ese apellido o DNI")
 def ordenarArchivoPor():
@@ -104,11 +81,8 @@ def ordenarArchivoPor():
     f = open("persona.csv", 'r')
     records = []
     for line in f:
-        for word in line.split():
-            word = word.replace(","," ")
-            word = word.replace(".","")
-            word = word.split()            
-            records.append(word) 
+        linea = split(line,',')
+        records.append(linea)
     f.close()
     entrada = int(entrada)
     if entrada == 3:
