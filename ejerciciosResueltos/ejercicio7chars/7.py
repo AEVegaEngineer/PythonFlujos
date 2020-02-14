@@ -3,14 +3,40 @@ def reemplazarCaracter(CAD,X,Y):
     # cambia el string a lista
     CAD  = list(CAD)
     # busca el caracter a cambiar
+    limiteInferior = 0
     posicion = 0
-    for c in CAD:        
-        if c == X:
-            posicion+=1
+    for c in CAD:
+        for xi in X:
+            if c == xi:
+                limiteInferior = posicion
+        posicion+=1
     # cambia el caracter que quieres cambiar
     CAD[Y] = "T"
     # convert the list back to a string. 
     CAD = "".join(CAD)
+
+def split(cadena,subcadena):
+    lista = []
+    substr = ""
+    i=0
+    for c in cadena:
+        
+        if c == subcadena or c == cadena[len(cadena)-1]:
+            lista.append(substr)
+            substr=""
+        if c != subcadena:
+            substr+=c
+        i+=1
+    return lista
+
+def listaACadena(lista):      
+    # inicializa cadena vacía
+    cadena = "" 
+    # itera en la lista y guarda en la cadena
+    for ele in lista:  
+        cadena += ele   
+    # retorna la cadena  
+    return cadena  
 
 def agregar():
     nombre=input("Ingrese nombre:")
@@ -30,24 +56,32 @@ def agregar():
         return "Persona ingresada correctamente"
  
 def eliminar():
-    dni=input("Ingrese DNI a eliminar:")
+    entrada=input("Ingrese DNI a eliminar:")
     f = open("persona.csv", 'r')
     records = []
     for line in f:
-        linea = line.split(',')        
-        linea[2] = reemplazarCaracter(linea[2],'\n','')
-        print (linea)
-        #contador = 0
+        linea = split(line,',')
+        dni = list(linea[2])
+        del dni[len(dni)-1]
+        dni = listaACadena(dni)
+        print (dni)
+        contador = 0
+        if dni != entrada:
+            records.append(line)
+        else:
+            contador+=1
+        if contador != 0:
+            return "No se encontro a la persona"
         #for word in line.split():
             #contador+=1
             #word = word.split()          
             #if word[2] != dni:
                 #records.append(line) 
-    #f.close()
-    #f = open("persona.csv", 'w')
-    #for linea in records:
-        #f.write(linea)
-    #f.close()
+    f.close()
+    f = open("persona.csv", 'w')
+    for linea in records:
+        f.write(linea)
+    f.close()
     return "Se ha eliminado a la persona"
 def buscar():
     entrada=input("Ingrese DNI o apellido a buscar:")
